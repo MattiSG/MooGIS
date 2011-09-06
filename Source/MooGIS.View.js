@@ -50,7 +50,14 @@ MooGIS.View = new Class({
 		/**Empty the container on load or not.
 		*Allows you to put a diagnostic/loading message while waiting for maps to load.
 		*/
-		clearContainer: true
+		clearContainer: true,
+		/**The default values that the map should show.
+		*/
+		'default': {
+			lat: 46.756667,
+			lng: 2.350833,
+			zoom: 5
+		}
 	},
 	
 /**********INIT**********/
@@ -76,9 +83,6 @@ MooGIS.View = new Class({
 				id : this.options.IDs[item]
 			}).inject(this._container);
 		}, this);
-		
-		this.renderersWidget = new PDCMapRenderersListWidget(this.leftContainer, this._controller)
-									.addEvent('viewportChange', this.showBounds.bind(this));
 	},
 	
 	/**To be implemented by subclasses.
