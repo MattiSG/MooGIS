@@ -1,0 +1,39 @@
+<!doctype html>  
+<html lang="en-EN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	
+		<title>Leaflet view — MooGIS demo</title>
+		<meta name="author" content="Matti Schneider-Ghibaudo">
+		
+		<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.2/mootools-yui-compressed.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Controller.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.View.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.View.Leaflet.js"></script>
+	</head>
+	
+	<body>
+	    <header>
+	    	<h1>MooGIS with Leaflet view</h1>
+	    </header>
+	    
+	    <div id="main" role="main">
+	    	
+		</div>
+		  
+		<footer>
+		</footer>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+			var view = new MooGIS.View.Leaflet('main');
+			var source = new MooGIS.Source.Random();
+			var controller = new MooGIS.Controller(source, view, {
+				save: false // local demo
+			});
+		//]]>
+		</script>
+	</body>
+</html>
