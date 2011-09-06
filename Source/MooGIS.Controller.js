@@ -29,6 +29,9 @@ MooGIS.Controller = new Class({
 	saveRequest: Request,
 */	
 	options: {
+		/**Options for an async request to a server that will save the serialized status of this MooGIS setup.
+		*Set to `false` to deactivate distant save altogether.
+		*/
 		save: {
 			url: 'save',
 			interval: 10000, //ms, set to 0 to deactivate
@@ -42,8 +45,10 @@ MooGIS.Controller = new Class({
 		this.view = view;
 		this.setOptions(options);
 		
-		this.saveRequest = new Request(this.options.save);
-		this.save.periodical(this.options.save.interval, this);
+		if (this.options.save) {
+			this.saveRequest = new Request(this.options.save);
+			this.save.periodical(this.options.save.interval, this);
+		}
 		
 		this.view.setController(this);
 	},
