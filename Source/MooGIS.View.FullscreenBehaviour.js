@@ -20,18 +20,18 @@ version: 0.0.1
 
 /**Usage: `MooGIS.View.FullscreenBehaviour(myView [, options])`. No use of the `new` operator, you're attaching a behaviour to an instance.
 *
-*Adds the following events to the ones triggered by the attached MooGIS.View:
-* - enterFullscreen: when the view enters fullscreen mode
-* - exitFullscreen: when the view exits fullscreen mode
+*Adds the following events to the ones triggered by the attached `MooGIS.View`:
+* - `enterFullscreen`: when the view enters fullscreen mode
+* - `exitFullscreen`: when the view exits fullscreen mode
 *
-*Adds the following methods and fields to MooGIS.View:
-* - isFullscreen: Boolean
-* - fullscreenButton: Element
-* - toggleFullscreen()
-* - enterFullscreen()
-* - exitFullscreen()
+*Adds the following methods and fields to `MooGIS.View`:
+* - `isFullscreen`: `Boolean`
+* - `fullscreenButton`: `Element`
+* - `toggleFullscreen()`
+* - `enterFullscreen()`
+* - `exitFullscreen()`
 *
-*@returns	the fullscreen toggle button
+*@returns	Element	the fullscreen toggle button
 */
 MooGIS.View.FullscreenBehaviour = function attachFullscreenBehaviour(view, options) {
 /**********OPTIONS SETUP**********/
