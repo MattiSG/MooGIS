@@ -63,7 +63,7 @@ MooGIS.View = new Class({
 		
 		this.buildDOM();
 			
-		this.initMap();
+		this._map = this.initMap();
 		
 		this.fireEvent('domready');
 		
@@ -78,39 +78,31 @@ MooGIS.View = new Class({
 		}, this);
 		
 		this.renderersWidget = new PDCMapRenderersListWidget(this.leftContainer, this._controller)
-									.addEvent('viewportChange', this.handleViewportChangeRequest.bind(this));
-		
-		this.dumpOutput = new Element('pre').inject(this._mapContainer);
-		this._mapContainer.grab(new Element('button', {
-			text: 'dump',
-			events: {
-				click: function() {
-					this.dumpOutput.set('text', JSON.encode(this.renderersWidget.serialize()));
-				}.bind(this)
-			}
-		}));
+									.addEvent('viewportChange', this.showBounds.bind(this));
 	},
 	
+	/**To be implemented by subclasses.
+	*Initializes the underlying map instance.
+	*
+	*@returns	the underlying map instance
+	*@see	_map
+	*/
+	/*
 	initMap: function initMap() {
-
+		
 	},
+	*/
 		
 /**********GETTERS**********/
 	/**Returns the underlying, implementation-specific map (L.Map instance for Leaflet, google.maps.Map for GMaps…).
 	*Useful for filters and renderers that rely on specific functionalities, even though that should be avoided when possible.
 	*/
-	map: function getMap() {
+	map: function map() {
 		return this._map;
 	},
 	
-	container: function getContainer() {
-	
-	},
-	
-/**********SETTERS**********/
-	setController: function setController(controller) {
-		this._controller = controller;
-		this.renderersWidget.setController(controller);
+	container: function container() {
+		return this._container;
 	},
 	
 /**********INTERFACE MANAGEMENT**********/	
@@ -118,20 +110,15 @@ MooGIS.View = new Class({
 		this.detailsContainer.set('html', details);
 		return this;
 	},
-
 	
-	handleViewportChangeRequest: function handleViewportChangeRequest(bounds, requester) {
-		this.setStatus('Viewport changed!');
-	},
-	
-/**********RENDERING**********/
-	loadRenderer: function loadRenderer(renderer) {
-		this.renderersWidget.loadRenderer(renderer);
-	},
-	
-	/**Adds the given class to the list of available renderer.
+	/**To be implemented by subclasses.
+	*Sets the underlying map instance's bounds so that the given bounds are visible.
+	*
+	*@param	bounds	bounds, in any format that's acceptable for the underlying map instance
+	*@param	requester	the Module that requested the viewport change
 	*/
-	registerRenderer: function registerRenderer(klass) {
-		this.renderersWidget.registerRenderer(klass);
-	}
+	/*
+	showBounds: function showBounds(bounds, requester) {
+	},
+	*/
 });
