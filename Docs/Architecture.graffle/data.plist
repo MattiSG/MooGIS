@@ -1571,7 +1571,7 @@ load(jsonData)}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{760, 0}, {1012, 709}}</string>
+		<string>{{596, 0}, {1012, 709}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
