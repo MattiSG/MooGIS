@@ -34,7 +34,7 @@ MooGIS.View.Leaflet = new Class({
 			*@see	http://leaflet.cloudmade.com/reference.html#tilelayer-options
 			*/
 			options: {
-				attribution: "Map data CC-BY-SA OpenStreetMap contributors, Terrain ©2011 CloudMade"
+				attribution: "Map data CC-BY-SA OpenStreetMap contributors, Imagery ©2011 CloudMade"
 			}
 		}
 	},
@@ -58,6 +58,8 @@ MooGIS.View.Leaflet = new Class({
 			this.options.tileLayer.url,
 			this.options.tileLayer.options
 		));
+		
+		return map;
 	},
 	
 	showBounds: function showBounds(bounds, requester) {
