@@ -12,6 +12,9 @@
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Controller.js"></script>
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.View.js"></script>
 		
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.GeoJSON.js"></script>
+		
 		<script language="javascript" type="text/javascript" src="https://raw.github.com/CloudMade/Leaflet/v0.2.1/dist/leaflet.js"></script>
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.View.Leaflet.js"></script>
 		
@@ -50,8 +53,30 @@
 		
 		<script type="text/javascript">
 		//<![CDATA[
-			var view = new MooGIS.View.Leaflet('main');
-//			var source = new MooGIS.Source.Random();
+			var view = new MooGIS.View.Leaflet('main', {
+				tileLayer: {
+					url: 'http://{s}.tile.cloudmade.com/2c285efc8cee49bc9c87536b51066677/997/256/{z}/{x}/{y}.png'
+				}
+			});
+			
+			var source = new MooGIS.Source.GeoJSON('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
+			// 'http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson'
+
+
+			var geoJSONlayer = new L.GeoJSON();
+
+			view.map().addLayer(geoJSONlayer);
+				
+			geoJSONlayer.on('featureparse', function(e) {
+				var popup = '<dl><dt>Some text:</dt><dd>' + e.properties.someText + '</dd></dl>';
+				e.layer.bindPopup(popup);
+			});
+
+			source.addEvent('set', geoJSONlayer.addGeoJSON.bind(geoJSONlayer));
+			source.addEvent('error', console.warn.bind(console)); // don't include this in production 
+			
+			source.load();
+			
 //			var controller = new MooGIS.Controller(source, view, {
 //				save: false // local demo
 //			});
