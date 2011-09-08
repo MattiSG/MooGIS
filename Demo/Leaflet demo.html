@@ -59,8 +59,9 @@
 				}
 			});
 			
-			var source = new MooGIS.Source.GeoJSON('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
-			// 'http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson'
+//			var source = new MooGIS.Source.GeoJSON('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
+//			var source = new MooGIS.Source.GeoJSON('http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson');
+			var source = new MooGIS.Source.GeoJSON('http://localhost/frontend_dev.php/analyser/geo.json');
 
 
 			var geoJSONlayer = new L.GeoJSON();
@@ -68,7 +69,11 @@
 			view.map().addLayer(geoJSONlayer);
 				
 			geoJSONlayer.on('featureparse', function(e) {
-				var popup = '<dl><dt>Some text:</dt><dd>' + e.properties.someText + '</dd></dl>';
+				var popup = '<dl>';
+				Object.each(e.properties, function(val, key) {
+					popup += '<dt>' + key + '</dt><dd>' + (val || '<em>No value</em>') + '</dd>';
+				});
+				popup += '</dl>';
 				e.layer.bindPopup(popup);
 			});
 
