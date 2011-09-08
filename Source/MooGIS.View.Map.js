@@ -24,6 +24,7 @@ MooGIS.View.Map = new Class({
 	*load: when the map has finished loading tiles
 	*/
 	Implements: [Options, Events],
+	
 /*
 	_map: implementation-specific map instance (L.Map instance for Leaflet, google.maps.Map for GMaps…). To be defined by subclasses.
 	_container: Element,
@@ -38,6 +39,20 @@ MooGIS.View.Map = new Class({
 			zoom: 5
 		}
 	},
+	
+	/**Lists all input types this Map can manage. Each stream must be connected to a specific channel, and this list makes runtime incompatibilities detectable.
+	* **WARNING**: the channels must be listed in **capitalized lowercase***.
+	*
+	*For each of these channels, a `View.Map` guarantees being able to manage the `add`, `remove` and `set` events by any stream. This is done by implementing `[eventname][Channelname]` methods.
+	*For example, to be rightful to list the Geojson channel in this hash, a `View.Map` subclass has to implement these three methods:
+	* - `addGeojson(addedFeaturesArray)`
+	* - `removeGeojson(removedFeaturesArray)`
+	* - `setGeojson(featuresArray)`
+	*/
+	channels: [
+		'Tile',
+		'Geojson'
+	],
 	
 /**********INIT**********/
 	initialize: function init(container, options) {
@@ -85,4 +100,18 @@ MooGIS.View.Map = new Class({
 	showBounds: function showBounds(bounds, requester) {
 	},
 	*/
+	
+/**********SETTERS**********/
+	/**Adds an input stream for display by this map
+	*
+	*@param	channel	String	the channel ID for this source
+	*@param	source	MooGIS.Source	the events source to get attached to
+	*/
+	addStream: function addStream(channel, source) {
+		channel = channel.toLowerCase().capitalize(); // normalization for method matching
+		
+		['add', 'remove', 'set'].each(function(eventName) {
+			source.addEvent(eventName, this[eventName + channel].bind(this));
+		}, this);
+	}
 });

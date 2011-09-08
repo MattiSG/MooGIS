@@ -59,6 +59,16 @@
 			view.setMap('Leaflet', {
 				tileLayer: {
 					url: 'http://{s}.tile.cloudmade.com/2c285efc8cee49bc9c87536b51066677/997/256/{z}/{x}/{y}.png'
+				},
+				geojsonChannel: {
+					onFeatureparse: function(e) {
+						var popup = '<dl>';
+						Object.each(e.properties, function(val, key) {
+							popup += '<dt>' + key + '</dt><dd>' + (val || '<em>No value</em>') + '</dd>';
+						});
+						popup += '</dl>';
+						e.layer.bindPopup(popup);
+					}
 				}
 			});
 			
@@ -66,21 +76,8 @@
 //			var source = new MooGIS.Source.GeoJSON('http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson');
 			var source = new MooGIS.Source.GeoJSON('http://localhost/frontend_dev.php/analyser/geo.json');
 
+			view._mapView.addStream('Geojson', source);
 
-			var geoJSONlayer = new L.GeoJSON();
-
-			view._mapView.map().addLayer(geoJSONlayer);
-				
-			geoJSONlayer.on('featureparse', function(e) {
-				var popup = '<dl>';
-				Object.each(e.properties, function(val, key) {
-					popup += '<dt>' + key + '</dt><dd>' + (val || '<em>No value</em>') + '</dd>';
-				});
-				popup += '</dl>';
-				e.layer.bindPopup(popup);
-			});
-
-			source.addEvent('set', geoJSONlayer.addGeoJSON.bind(geoJSONlayer));
 			source.addEvent('error', console.warn.bind(console)); // don't include this in production 
 			
 			source.load();
