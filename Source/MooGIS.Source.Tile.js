@@ -1,6 +1,6 @@
 /*
 ---
-description: Defines a MooGIS Tile source.
+description: Defines a MooGIS source for the Tile channel.
 
 license: to be determined
 
