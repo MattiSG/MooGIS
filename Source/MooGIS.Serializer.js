@@ -1,6 +1,6 @@
 /*
 ---
-description: Controls a complex map containing several hundreds or thousands markers with a lot of metadata.
+description: Serializes and deserializes a user setup and saves it to a distant to server.
 
 license: to be determined
 
@@ -10,10 +10,8 @@ authors:
 requires:
 - core/1.3: '*'
 - MooGIS
-- MooGIS.View
-- MooGIS.Group
 
-provides: [MooGIS.Controller]
+provides: [MooGIS.Serializer]
 
 version: 0.0.1
 
@@ -24,43 +22,36 @@ version: 0.0.1
 MooGIS.Controller = new Class({
 	Implements: [Options, Events],
 /*
-	source: MooGIS.Group,
-	view: MooGIS.View,
 	saveRequest: Request,
 */	
 	options: {
+		/**Interval between autosave requests, in ms
+		*Set to false to deactivate the periodical autosave. Remember to call `save()` regularly!
+		*/
+		interval: 10000,
 		/**Options for an async request to a server that will save the serialized status of this MooGIS setup.
 		*Set to `false` to deactivate distant save altogether.
 		*/
 		save: {
 			url: 'save',
-			interval: 10000, //ms, set to 0 to deactivate
 			method: 'post',
 			successValue: 'ok'
 		}
 	},
 	
-	initialize: function init(source, view, options) {
+	initialize: function init(options) {
 		this.source = source;
 		this.view = view;
 		this.setOptions(options);
 		
 		if (this.options.save) {
 			this.saveRequest = new Request(this.options.save);
-			this.save.periodical(this.options.save.interval, this);
+			this.save.periodical(this.options.interval, this);
 		}
 		
 		this.view.setController(this);
 	},
 	
-	getModel: function getModel() {
-		return this.source;
-	},
-	
-	getView: function getView() {
-		return this.view;
-	},
-		
 	save: function save() {
 		this.saveRequest.send({
 			data: {

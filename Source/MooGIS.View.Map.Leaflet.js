@@ -9,17 +9,17 @@ authors:
 
 requires:
 - core/1.3: '*'
-- MooGIS.View
+- MooGIS.View.Map
 
-provides: [MooGIS.View.Leaflet]
+provides: [MooGIS.View.Map.Leaflet]
 
 version: 0.0.1
 
 ---
 */
 
-MooGIS.View.Leaflet = new Class({
-	Extends: MooGIS.View,
+MooGIS.View.Map.Leaflet = new Class({
+	Extends: MooGIS.View.Map,
 	
 	options: {
 		tileLayer: {
@@ -44,7 +44,7 @@ MooGIS.View.Leaflet = new Class({
 	},
 	
 	initMap: function initMap() {
-		var map = new L.Map(this.options.IDs.map);
+		var map = new L.Map(this._container);
 		
 		map.on('load', this.fireEvent.pass('load', this));
 		

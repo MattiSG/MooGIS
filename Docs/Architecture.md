@@ -4,27 +4,30 @@ MooGIS architecture
 Overview
 --------
 
-MVC is used for the main control loop. Communication between components is as much event-driven as possible.
-
 Standard steps:
-- create a `MooGIS.View.XXX`, `XXX` being your implementation, or one of the standard ones. Will handle all geographical display of information.
-- create a `MooGIS.Group` instance that will feed your view through the controller. It will be referred to as the "blessed group", the one whose output is rendered. Indeed, groups may be chained to create complex filters.
-- create a `MooGIS.Controller` with the previously-defined view and source elements. Will handle all layout / renderer registration / save & load commands.
-- optionally, use a serialized input through `controller.load(jsonEncodedData)`.
-- create whatever complex hierarchy of groups, filters and renderers you want, and watch the magic as events invisibly handle all filtering and chaining.
+- create a `MooGIS.XXX`, `XXX` being your implementation, or one of the standard ones. Will handle all display of information.
+- create a `MooGIS.Source.GeoJSON` (or whichever Source subclass suits you best).
+- create any number of instances of `MooGIS.Group` and `MooGIS.Filter` to feed your MooGIS.
+- open channels in the MooGIS instance to feed it the features streams outputted by your filters: `myMooGis.addStream(someSource)`.
+- create whatever complex hierarchy of groups, filters and renderers you want, register the ones you want to be user-accessible, and watch the magic as events invisibly handle all filtering and chaining!
 
-Views
------
+Controller
+----------
 
-A class is called a "View" if it extends MooGIS.View.
+A class is called a "Controller" if it extends MooGIS. It is a Controller in the meaning of the MVC2 pattern.
 
-It is a view of the entire GIS system (groups, filters and so on), and not only an abstraction of a map.
+It manages all views of the entire GIS system (groups, filters and so on), and not only the map.
+
+View.Map
+--------
+
+A `MooGIS.View.Map` is an **interface** for actual maps API, such as Leaflet, Google Maps… It is **not** a full API abstraction (more details later). It merely allows you to display the feature streams by mapping the drawing primitives, nothing more.
 
 ### Underlying map instance ###
 
-A view embeds what is referred to an "underlying map instance", that is, the actual map object, depending on the API you chose. For example, with [Leaflet](http://leaflet.cloudmade.com), it will be an `L.Map`; with [Google Maps v3](http://code.google.com/intl/fr/apis/maps/documentation/javascript/reference.html), a `google.maps.Map`, and so on. This underlying instance is always accessible through `myView.getMap()`.
+A `View.Map` embeds what is referred to an "underlying map instance", that is, the actual map object, depending on the API you chose. For example, with [Leaflet](http://leaflet.cloudmade.com), it will be an `L.Map`; with [Google Maps v3](http://code.google.com/intl/fr/apis/maps/documentation/javascript/reference.html), a `google.maps.Map`, and so on. This underlying instance is always accessible through `myView.map()`.
 
-### API abstraction ###
+### API abstraction limits ###
 
 Even though it might be tempting to, the Views will **not** try to abstract away their underlying instance.
 
@@ -40,7 +43,7 @@ The problem with trying to abstract away everything is that, in the end, you'll 
 
 Great! Please make sure to do a pull request once you're done, that looks promising  :)
 
-Simply extend `MooGIS.View` with your one-size-fits-all View!
+Simply extend `MooGIS.View.Map` with your one-size-fits-all View.Map!
 
 
 Modules and Groups
@@ -62,9 +65,8 @@ Namespaces
 ----------
 
 Root namespace: `MooGIS`.
+- `MooGIS` is the main controller class, that will bind a `MooGIS.View.*` instance to a `MooGIS.Model.Source` instance and handle all filter chains.
 - `MooGIS.View` contains all view classes.
-- `MooGIS.Model` contains all model classes (thank you captain obvious!)
-	* `MooGIS.Model.Source` is the superclass of any class that wants to be used as a source of features to be displayed on a view. A [composite](http://en.wikipedia.org/wiki/Composite_pattern) pattern is used here, so that filtered and chained sources are still `Source` instances themselves.
-- `MooGIS.Controller` is the main controller class, that will bind a `MooGIS.View.*` instance to a `MooGIS.Model.Source` instance and handle all filter chains.
+- `MooGIS.Source` is the superclass of any class that wants to be used as a source of features to be displayed on a view. A [composite](http://en.wikipedia.org/wiki/Composite_pattern) pattern is used here, so that filtered and chained sources are still `Source` instances themselves.
 - `MooGIS.Filter` is the namespace for all classes that define filters over a `Source`.
 - `MooGIS.Renderer` is the namespace for all classes that define renderers over a `Source`.

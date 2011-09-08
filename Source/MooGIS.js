@@ -14,6 +14,7 @@ authors:
 
 requires:
 - core/1.3: '*'
+- MooGIS.View
 
 provides: [MooGIS]
 
@@ -22,6 +23,13 @@ version: 0.0.1
 ---
 */
 
-var MooGIS = {
-	version: '0.0.1'
-};
+var MooGIS = new Class({
+	Implements: [Options, Events],
+	
+	/*
+	_view: MooGIS.View
+	*/
+	options: {
+
+	}
+});
