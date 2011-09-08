@@ -15,6 +15,9 @@
 		
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.js"></script>
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.GeoJSON.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.GeoJSON.Distant.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.Tile.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.Tile.Cloudmade.js"></script>
 		
 		<script language="javascript" type="text/javascript" src="https://raw.github.com/CloudMade/Leaflet/v0.2.1/dist/leaflet.js"></script>
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.View.Map.Leaflet.js"></script>
@@ -57,9 +60,6 @@
 			var view = new MooGIS.View('main');
 			
 			view.setMap('Leaflet', {
-				tileLayer: {
-					url: 'http://{s}.tile.cloudmade.com/2c285efc8cee49bc9c87536b51066677/997/256/{z}/{x}/{y}.png'
-				},
 				geojsonChannel: {
 					onFeatureparse: function(e) {
 						var popup = '<dl>';
@@ -74,12 +74,15 @@
 			
 //			var source = new MooGIS.Source.GeoJSON('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
 //			var source = new MooGIS.Source.GeoJSON('http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson');
-			var source = new MooGIS.Source.GeoJSON('http://localhost/frontend_dev.php/analyser/geo.json');
+			var source = new MooGIS.Source.GeoJSON.Distant('http://localhost/frontend_dev.php/analyser/geo.json');
+			var tileSource = new MooGIS.Source.Tile.Cloudmade('2c285efc8cee49bc9c87536b51066677');
 
 			view._mapView.addStream('Geojson', source);
+			view._mapView.addStream('Tile', tileSource);
 
 			source.addEvent('error', console.warn.bind(console)); // don't include this in production 
 			
+			tileSource.fireEvent('set', [tileSource.features()]);
 			source.load();
 			
 //			var controller = new MooGIS.Controller(source, view, {

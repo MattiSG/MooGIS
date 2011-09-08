@@ -26,23 +26,15 @@ MooGIS.View.Map.Leaflet = new Class({
 	*/
 	
 	options: {
-		tileLayer: {
-			/**Alternatives:
-			* - OSM Mapnik: http://tile.openstreetmap.org/{z}/{x}/{y}.png
-			*
-			*@see	http://leaflet.cloudmade.com/reference.html#tilelayer
-			*@see	http://maps.cloudmade.com/editor
-			*/
-			url: 'http://{s}.tile.cloudmade.com/YOUR-API-KEY/997/256/{z}/{x}/{y}.png',
-			/**
-			*@see	http://leaflet.cloudmade.com/reference.html#tilelayer-options
-			*/
-			options: {
-				attribution: "Map data CC-BY-SA OpenStreetMap contributors, Imagery ©2011 CloudMade"
-			}
+		/**L.TileLayer options, to be merged with Tiledefs.
+		*
+		*@see	http://leaflet.cloudmade.com/reference.html#tilelayer-options
+		*@see	Tiledef
+		*/
+		tileChannel: {
 		},
 		
-		/**GeoJSON options, plus 'onFeatureparse' key, that will be mapped to .on('featureparse')
+		/**L.GeoJSON options, plus 'onFeatureparse' key, that will be mapped to .on('featureparse')
 		*
 		*@see	http://leaflet.cloudmade.com/reference.html#geojson-options
 		*@see	http://leaflet.cloudmade.com/reference.html#geojson
@@ -50,6 +42,13 @@ MooGIS.View.Map.Leaflet = new Class({
 		geojsonChannel: {
 		}
 	},
+	
+	/**List of all currently active Tile Layers.
+	*Keys are url templates (Tiledef.url), values the full Tiledef + an additional `_tileLayer` property that references the corresponding `L.TileLayer` instance.
+	*
+	*@see	Tiledef
+	*/
+	_tiledefs: { },
 	
 	initialize: function init(container, options) {
 		this.parent(container, options);
@@ -65,16 +64,11 @@ MooGIS.View.Map.Leaflet = new Class({
 						this.options.default.lng
 					),
 					this.options.default.zoom);
-		
-		map.addLayer(new L.TileLayer(
-			this.options.tileLayer.url,
-			this.options.tileLayer.options
-		));
-		
+							
 		return map;
 	},
 	
-	initGeoJsonLayer: function initGeoJsonLayer() {
+	initGeojson: function initGeojson() {
 		this._geoJsonLayer = new L.GeoJSON(null, this.options.geojsonChannel);
 		
 		var onFeatureparse = this.options.geojsonChannel.onFeatureparse;
@@ -102,9 +96,39 @@ MooGIS.View.Map.Leaflet = new Class({
 		throw('NOT IMPLEMENTED');
 	},
 	
-	
 	setGeojson: function setGeojson(features) {
-		this.initGeoJsonLayer();
+		this.initGeojson();
 		this._geoJsonLayer.addGeoJSON(features);
+	},
+	
+	/*******TILE CHANNEL*******/
+	addTile: function addTile(addedTiledefs) {
+		Array.each(addedTiledefs, function(tiledef) {
+			var activeTiledef = this._tiledefs[tiledef.url];
+			if (activeTiledef)
+				throw("This shouldn't happen: added Tile is a duplicate!"); //DEBUG, to be removed
+			
+			tiledef._tileLayer = new L.TileLayer(tiledef.url, Object.merge(this.options.tileChannel, tiledef));
+			
+			this._map.addLayer(tiledef._tileLayer);
+			
+			this._tiledefs[tiledef.url] = tiledef;
+		}, this);
+	},
+	
+	removeTile: function removeTile(removedTiledefs) {
+		Array.each(removedTiledefs, function(tiledef) {
+			var activeTiledef = this._tiledefs[tiledef.url];
+			if (activeTiledef) {
+				this._map.removeLayer(activeTiledef._tileLayer);
+				delete this._tiledefs[tiledef.url];
+			}
+		}, this);
+	},
+	
+	
+	setTile: function setTile(tiledefs) {
+		this.removeTile(Object.values(this._tiledefs));
+		this.addTile(tiledefs);
 	}
 });
