@@ -49,7 +49,12 @@
 	    </header>
 	    
 	    <div id="main" role="main">
+	    	Geographical Information System is loading…
 	    	
+	    	<noscript>
+	    		<h3>You need to enable Javascript in order to use the GIS!</h3>
+	    		<a href="http://www.google.com/support/bin/answer.py?answer=23852" title="Learn how to enable Javascript">How do I do this?</a>
+	    	</noscript>
 		</div>
 		  
 		<footer>
@@ -72,8 +77,8 @@
 				}
 			});
 			
-//			var source = new MooGIS.Source.GeoJSON('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
-//			var source = new MooGIS.Source.GeoJSON('http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson');
+//			var source = new MooGIS.Source.GeoJSON.Distant('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
+//			var source = new MooGIS.Source.GeoJSON.Distant('http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson');
 			var source = new MooGIS.Source.GeoJSON.Distant('http://localhost/frontend_dev.php/analyser/geo.json');
 			var tileSource = new MooGIS.Source.Tile.Cloudmade('2c285efc8cee49bc9c87536b51066677');
 
@@ -84,10 +89,7 @@
 			
 			tileSource.fireEvent('set', [tileSource.features()]);
 			source.load();
-			
-//			var controller = new MooGIS.Controller(source, view, {
-//				save: false // local demo
-//			});
+
 		//]]>
 		</script>
 	</body>
