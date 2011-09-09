@@ -46,7 +46,7 @@ MooGIS.Filter = new Class({
 	setSource: function setSource(source) {
 		this._source = source;
 		if (source) {
-			['set', 'add', 'remove'].each(function(event) {
+			['set', 'add', 'remove'].each(function(eventName) {
 				source.addEvent(eventName, this['_handle' + eventName.capitalize()].bind(this))
 			});
 			

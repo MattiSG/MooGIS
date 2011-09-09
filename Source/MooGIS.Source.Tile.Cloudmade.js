@@ -50,8 +50,6 @@ MooGIS.Source.Tile.Cloudmade = new Class({
 		this.parent(opts);
 		
 		this._key = key;
-		
-		this.reload();
 	},
 	
 	stream: function stream() {
