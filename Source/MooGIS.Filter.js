@@ -48,7 +48,7 @@ MooGIS.Filter = new Class({
 		if (source) {
 			['set', 'add', 'remove'].each(function(eventName) {
 				source.addEvent(eventName, this['_handle' + eventName.capitalize()].bind(this))
-			});
+			}, this);
 			
 			this.reload();
 		}

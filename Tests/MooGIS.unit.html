@@ -20,7 +20,22 @@
 		<script language="javascript" type="text/javascript" src="https://raw.github.com/CloudMade/Leaflet/v0.2.1/dist/leaflet.js"></script>
 		
 		<!-- MooGIS -->
-		<script language="javascript" type="text/javascript" src="../Source/MooGIS.js"></script>
+		<script src="../Source/MooGIS.js" language="javascript" type="text/javascript"></script>
+		<script src="../Source/MooGIS.Source.js" language="javascript" type="text/javascript"></script>
+		<script src="../Source/MooGIS.Source.GeoJSON.js" language="javascript" type="text/javascript"></script>
+		<script src="../Source/MooGIS.Source.GeoJSON.Input.js" language="javascript" type="text/javascript"></script>
+		<script src="../Source/MooGIS.Filter.js" language="javascript" type="text/javascript"></script>
+		
+		<!-- Fixtures -->
+		<script src="lib/MooGIS.Filter.PassThrough.js" language="javascript" type="text/javascript"></script>
+		<script src="fixtures/geojsonData.js" language="javascript" type="text/javascript"></script>
+		
+		<!-- Tests -->
+		<script src="unit/MooGIS.test.js" language="javascript" type="text/javascript"></script>
+		<script src="unit/MooGIS.Source.test.js" language="javascript" type="text/javascript"></script>
+		<script src="unit/MooGIS.Source.GeoJSON.test.js" language="javascript" type="text/javascript"></script>
+		<script src="unit/MooGIS.Source.GeoJSON.Distant.test.js" language="javascript" type="text/javascript"></script>
+		<script src="unit/MooGIS.Filter.test.js" language="javascript" type="text/javascript"></script>
 		
 		<script type="text/javascript">
 		//<![CDATA[
@@ -43,12 +58,14 @@
 		
 		<script type="text/javascript">
 		//<![CDATA[
+		/*
 			[
 				'Source',
 				'Source.GeoJSON',
 				'Source.GeoJSON.Distant',
 				'Filter'
 			].each(loadTest);
+		*/
 		//]]>
 		</script>
 	</body>
