@@ -14,42 +14,37 @@ var subject,
 
 describe('Filter', {
 	before_all: function() {
-		source = new MooGIS.Source.GeoJSON.Distant('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
+		source = new MooGIS.Source.GeoJSON.Input(geojsonData());
 	},
 	
 	before: function() {
-		signal = false;
-		secondSignal = false;
+		signal = secondSignal = 0;
 	
-		subject = new MooGIS.Filter(source);
-		secondSubject = new MooGIS.Filter(subject);
-		
-		subject.accepts = secondSubject.accepts = function(features) {
-			return true;
-		}
+		subject = new MooGIS.Filter.PassThrough(source);
+		secondSubject = new MooGIS.Filter.PassThrough(subject);
 		
 		subject.addEvent('set', function() {
-			signal = true;
+			signal++;
 		});
 		secondSubject.addEvent('set', function() {
-			secondSignal = true;
+			secondSignal++;
 		});
 	},
 	
 	"'set' events are not sent out of nowhere": function() {
-		value_of(signal).should_be(false);
+		value_of(signal).should_be(0);
 	},
 	
-	"Source 'set' events are forwarded": function() {
+	"Source 'set' events are forwarded, and forwarded once": function() {
 		source.reload();
 		
-		value_of(signal).should_be(true);
+		value_of(signal).should_be(1);
 	},
 	
-	"Chained 'set' events are forwarded": function() {
+	"Chained 'set' events are forwarded, and forwarded once": function() {
 		source.reload();
 		
-		value_of(secondSignal).should_be(true);
+		value_of(secondSignal).should_be(1);
 	}
 });
 
