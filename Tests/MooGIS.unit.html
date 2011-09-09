@@ -1,0 +1,42 @@
+<!doctype html>  
+<html lang="en-EN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	
+		<title>MooGIS unit tests</title>
+		<meta name="author" content="Matti Schneider-Ghibaudo">
+		
+		<!-- JSSpec -->
+		<link rel="stylesheet" type="text/css" href="JSSpec.css" />
+		<script language="javascript" type="text/javascript" src="../src/Mapping Modernism.js"></script>
+		<script type="text/javascript" src="diff_match_patch.js"></script>
+		<script type="text/javascript" src="JSSpec.js"></script>
+		
+		<!-- MooTools -->
+		<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.2/mootools-yui-compressed.js"></script>
+		<script language="javascript" type="text/javascript" src="lib/mootools-more-assets-1.3.2.1.js"></script>
+		
+		<!-- Leaflet -->
+		<script language="javascript" type="text/javascript" src="https://raw.github.com/CloudMade/Leaflet/v0.2.1/dist/leaflet.js"></script>
+		
+		<!-- MooGIS -->
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.js"></script>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+			/*Files are then loaded in each of the unit tests files.
+			*/
+			function loadSource(className) {
+				new Asset.javascript('../Source/MooGIS.' + className + '.js');
+			}
+		//]]>
+		</script>
+		
+		<!-- Tests -->
+		
+	</head>	
+	<body>
+		<h1>MooGIS unit tests</h1>
+	</body>
+</html>
