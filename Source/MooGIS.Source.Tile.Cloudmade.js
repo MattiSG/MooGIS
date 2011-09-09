@@ -51,10 +51,10 @@ MooGIS.Source.Tile.Cloudmade = new Class({
 		
 		this._key = key;
 		
-		this.fireEvent('set', this.features());
+		this.reload();
 	},
 	
-	features: function features() {
+	stream: function stream() {
 		return [ // array for interface compliance
 			Object.merge(
 						 this.options,

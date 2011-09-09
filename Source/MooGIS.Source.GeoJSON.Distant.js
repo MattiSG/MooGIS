@@ -69,7 +69,7 @@ MooGIS.Source.GeoJSON.Distant = new Class({
 	/**
 	*Remember to call `load`, and that `load` is async!
 	*/
-	features: function features() {
+	stream: function stream() {
 		if (! this.cache) {
 			this.load();
 			throw('GeoJSON file not loaded yet!');

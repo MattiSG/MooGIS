@@ -26,5 +26,13 @@ MooGIS.Source = new Class({
 	
 	initialize: function init(options) {
 		this.setOptions(options);
+	},
+	
+	reload: function reload() {
+		this.fireEvent('set', this.stream());
+	},
+	
+	complement: function complement() {
+		return []; // for a Source, no complement!
 	}
 });

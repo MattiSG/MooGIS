@@ -87,7 +87,7 @@
 
 			source.addEvent('error', console.warn.bind(console)); // don't include this in production 
 			
-			tileSource.fireEvent('set', [tileSource.features()]);
+			tileSource.reload();
 			source.load();
 
 		//]]>
