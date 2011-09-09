@@ -8,10 +8,9 @@
 		<meta name="author" content="Matti Schneider-Ghibaudo">
 		
 		<!-- JSSpec -->
-		<link rel="stylesheet" type="text/css" href="JSSpec.css" />
-		<script language="javascript" type="text/javascript" src="../src/Mapping Modernism.js"></script>
-		<script type="text/javascript" src="diff_match_patch.js"></script>
-		<script type="text/javascript" src="JSSpec.js"></script>
+		<link rel="stylesheet" type="text/css" href="JSSpec/JSSpec.css" />
+		<script type="text/javascript" src="JSSpec/diff_match_patch.js"></script>
+		<script type="text/javascript" src="JSSpec/JSSpec.js"></script>
 		
 		<!-- MooTools -->
 		<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.2/mootools-yui-compressed.js"></script>
@@ -27,8 +26,9 @@
 		//<![CDATA[
 			/*Files are then loaded in each of the unit tests files.
 			*/
-			function loadSource(className) {
+			function loadTest(className) {
 				new Asset.javascript('../Source/MooGIS.' + className + '.js');
+				new Asset.javascript('../Tests/unit/MooGIS.' + className + '.test.js');
 			}
 		//]]>
 		</script>
@@ -37,6 +37,19 @@
 		
 	</head>	
 	<body>
-		<h1>MooGIS unit tests</h1>
+		<noscript>
+			<h1>MooGIS unit tests</h1>
+		</noscript>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+			[
+				'Source',
+				'Source.GeoJSON',
+				'Source.GeoJSON.Distant',
+				'Filter'
+			].each(loadTest);
+		//]]>
+		</script>
 	</body>
 </html>
