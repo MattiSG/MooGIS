@@ -23,9 +23,5 @@ MooGIS.Source.Tile = new Class({
 	
 	initialize: function init(options) {
 		this.parent(options);
-	},
-	
-	reload: function reload() {
-		this.fireEvent('set', [this.stream()]); // MooTools unwraps arrays
-	},
+	}
 });

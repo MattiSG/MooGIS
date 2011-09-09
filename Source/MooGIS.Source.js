@@ -29,7 +29,7 @@ MooGIS.Source = new Class({
 	},
 	
 	reload: function reload() {
-		this.fireEvent('set', this.stream());
+		this.fireEvent('set', [this.stream()]); // MooTools unwraps arrays on fireEvent
 	},
 	
 	complement: function complement() {

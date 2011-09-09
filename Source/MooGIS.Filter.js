@@ -57,19 +57,19 @@ MooGIS.Filter = new Class({
 	},
 	
 	_handleSet: function _handleSet(features) {
-		features = features.filter(this.accepts, this)
+		features = features.filter(this.accepts, this);
 		
-		this.fireEvent('set', features);
+		this.fireEvent('set', [features]); // MooTools unwraps arrays on fireEvent
 	},
 	
 	_handleAdd: function _handleAdd(features) {
 		features = features.filter(this.accepts, this);
 		
-		this.fireEvent('add', features);
+		this.fireEvent('add', [features]); // MooTools unwraps arrays on fireEvent
 	},
 	
 	_handleRemove: function _handleRemove(features) {
-		this.fireEvent('remove', features);
+		this.fireEvent('remove', [features]); // MooTools unwraps arrays on fireEvent
 	},
 	
 	stream: function stream() {
