@@ -10,6 +10,11 @@ Namespaces
 
 Filters are namespaced by channel: `MooGIS.Filter.<Channel>.<Implementation>`.
 
+Implementation
+--------------
+
+Usually, implementing a filter is just a matter of extending the proper `Filter.<Channel>` class, and specifying your `accepts` method.
+
 Caching
 -------
 

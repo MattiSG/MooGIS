@@ -10,6 +10,12 @@ Methods
 
 Gets the current data set.
 
+### reload ###
+
+Fires the `set` event with the current data set.
+
+Note: you usually won't have to implement this, it is a freebie of extending `MooGIS.Source`.
+
 Events
 ------
 
@@ -72,11 +78,7 @@ More interesting example:
 Data types & Channels
 =====================
 
-A data type is transmitted over a _channel_. A "channel" is no object, but an architectural concept: streams of data pass through them, from a source and through filters down to the view.
-
-This is why calls to `view.addStream` must precise which channel they want to use: so the view actually knows how to handle the stream.
-
-To work properly, all elements along the stream must know how to handle the data type that's passed around. They are therefore namespaced as defined in the Filter manual, and it is your responsibility to add only nodes that share the same channel when building your stream.
+See the Channels documentation.
 
 Features
 --------
