@@ -47,10 +47,12 @@ Coding Style, Philosophy & Implemented standards
 
 - [SemVer](http://semver.org), Semantic Versioning.
 - [README-Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html). Definitely applies to branches too.
-- `master` branch should always be deployable; however, only tagged versions are guaranteed stable.
-- one branch per functionality. Once functionality is implemented and tested, it is merged into `master`, and the branch is **deleted**.
-- code is considered valid only once it has been **documented** and **browser-tested**. Automated tests are not necessary for UI code (maintenance cost too high).
+- [GitHub-flow](http://scottchacon.com/2011/08/31/github-flow.html)-like, that is:
+	- `master` branch should always be deployable.
+	- one branch per functionality, with explicit branch naming. Once functionality is implemented and tested, it is merged into `master`, and the branch is **deleted**.
+- code is considered valid only once it has been **documented** and **tested**. Automated tests are not necessary for UI code (maintenance cost too high).
 - passed browser testing should always be committed. Even if there were no changes. Just do a commit, if necessary with `--allow-empty`, that says "Tested with browser X", before merging back to `master`.
+- atomic commits: a commit is **one** change. It may be a documentation change, an API change, an implementation change, it may be split across several files or stand in one line, but it changes only **one aspect** of the application.
 
 ### File hierarchy ###
 
@@ -58,7 +60,9 @@ Coding Style, Philosophy & Implemented standards
 
 ### Coding style ###
 
-- OOP. Much of it. Hence MooTools. And closure love.
+- OOP. Much of it. Hence MooTools.
+- Closures. Many of them. Hence Javascript.
+- [IIFEs](http://benalman.com/news/2010/11/immediately-invoked-function-expression/) to protect global namespace whenever something isn't namespaced.
 
 #### Writing ####
 
