@@ -27,6 +27,7 @@ MooGIS.Filter = new Class({
 	/**The input stream, a Source-compliant object.
 	*/
 	_source: null,
+	handledEvents: ['set', 'add', 'remove'],
 	
 	options: {
 		/**Use a cache or not? This is a memory/speed tradeoff, and most of the time not worth it since events are used. Double-check that your code really needs it.
@@ -37,37 +38,57 @@ MooGIS.Filter = new Class({
 	
 	initialize: function init(source, options) {
 		this.parent(options);
-		this.setSource(source);		
+		
+		this.handlers = {};
+		this.handledEvents.each(function(eventName) {
+			this.handlers[eventName] = this['_handle' + eventName.capitalize()].bind(this);
+		}, this);
+		
+		this.setSource(source);
 	},
 	
 	/**Sets this Filter's source and fires a `set` event.
 	*Set to null if you want to remove the source (in which case the filter has an empty stream).
 	*/
 	setSource: function setSource(source) {
-		this._source = source;
-		if (source) {
-			['set', 'add', 'remove'].each(function(eventName) {
-				source.addEvent(eventName, this['_handle' + eventName.capitalize()].bind(this))
+		//TODO performance: is `if each, if each` more efficient than `each{if if}`? Complexity says yes (hence current implementation), but maybe the call stack says no…
+		if (this._source) {
+			Object.each(this.handlers, function(handler, eventName) {
+				this._source.removeEvent(eventName, handler);
 			}, this);
-			
-			this.reload();
 		}
 		
+		if (source) {
+			Object.each(this.handlers, function(handler, eventName) {
+				source.addEvent(eventName, handler);
+			}, this);
+		}
+		
+		this._source = source;
 		return this;
 	},
 	
+	/**
+	*@protected
+	*/
 	_handleSet: function _handleSet(features) {
 		features = features.filter(this.accepts, this);
 		
 		this.fireEvent('set', [features]); // MooTools unwraps arrays on fireEvent
 	},
-	
+
+	/**
+	*@protected
+	*/	
 	_handleAdd: function _handleAdd(features) {
 		features = features.filter(this.accepts, this);
 		
 		this.fireEvent('add', [features]); // MooTools unwraps arrays on fireEvent
 	},
-	
+
+	/**
+	*@protected
+	*/
 	_handleRemove: function _handleRemove(features) {
 		this.fireEvent('remove', [features]); // MooTools unwraps arrays on fireEvent
 	},
