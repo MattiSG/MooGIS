@@ -1,4 +1,4 @@
-function geojsonData(){
+function geojsonData() {
 	return {
 		"type": "FeatureCollection",
 		"features": [

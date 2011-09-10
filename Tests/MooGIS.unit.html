@@ -29,6 +29,7 @@
 		<script src="../Source/MooGIS.sugar.js" language="javascript" type="text/javascript"></script>		
 		
 		<!-- Fixtures -->
+		<script src="lib/testClass.js" language="javascript" type="text/javascript"></script>
 		<script src="lib/MooGIS.Filter.Geojson.PassThrough.js" language="javascript" type="text/javascript"></script>
 		<script src="fixtures/geojsonData.js" language="javascript" type="text/javascript"></script>
 		
@@ -36,38 +37,12 @@
 		<script src="unit/MooGIS.test.js" language="javascript" type="text/javascript"></script>
 		<script src="unit/MooGIS.Source.test.js" language="javascript" type="text/javascript"></script>
 		<script src="unit/MooGIS.Filter.test.js" language="javascript" type="text/javascript"></script>
-		<script src="unit/MooGIS.sugar.test.js" language="javascript" type="text/javascript"></script>		
-		
-		<script type="text/javascript">
-		//<![CDATA[
-			/*Files are then loaded in each of the unit tests files.
-			*/
-			function loadTest(className) {
-				new Asset.javascript('../Source/MooGIS.' + className + '.js');
-				new Asset.javascript('../Tests/unit/MooGIS.' + className + '.test.js');
-			}
-		//]]>
-		</script>
-		
-		<!-- Tests -->
-		
+		<script src="unit/MooGIS.sugar.test.js" language="javascript" type="text/javascript"></script>	
+		<script src="unit/MooGIS.Source.Geojson.Input.test.js" language="javascript" type="text/javascript"></script>
 	</head>	
 	<body>
 		<noscript>
 			<h1>MooGIS unit tests</h1>
 		</noscript>
-		
-		<script type="text/javascript">
-		//<![CDATA[
-		/*
-			[
-				'Source',
-				'Source.Geojson',
-				'Source.Geojson.Distant',
-				'Filter'
-			].each(loadTest);
-		*/
-		//]]>
-		</script>
 	</body>
 </html>
