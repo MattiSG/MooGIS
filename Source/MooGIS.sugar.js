@@ -24,6 +24,24 @@ version: 0.0.1
 */
 var gis = MooGIS;
 
+
+(function() {
+
+/**Defines a `MooGIS.<Type>.<Channel> class, that inherits from `MooGIS.<Type>`, without any other method.
+*
+*@param	type	String	the type of module. For example: Source, Filter…
+*@param	channel	String	the channel namespace to create
+*/
+function createChannel(type, channel) {
+	return MooGIS[type][channel] = new Class({
+		Extends: MooGIS[type],
+		
+		initialize: function init(options) {
+			this.parent(options);
+		}
+	});
+}
+
 /**Defines a `MooGIS.Filter.<Channel>.<Implementation>` class.
 *
 *@returns	the new class. Note: the fully namespaced filter will also be created and made available globally.	
@@ -59,3 +77,5 @@ gis.source = function newSource(channel, name, stream, helpers) {
 	
 	return result;
 }
+
+})();
