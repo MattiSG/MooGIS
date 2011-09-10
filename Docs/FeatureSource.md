@@ -53,18 +53,18 @@ Let your controller code bind your view updates to specific sources  :)
 Simple example:
 	// gis has been defined as a MooGIS subclass instance
 	
-	var markerSource = new MooGIS.Source.GeoJSON.Distant('http://example.com/geo.json');
+	var markerSource = new MooGIS.Source.Geojson.Distant('http://example.com/geo.json');
 	
 	gis.addStream('geojson', markerSource);
 
 More interesting example:
 	// gis has been defined as a MooGIS subclass instance
 	
-	var source = new MooGIS.Source.GeoJSON.Distant('http://example.com/geo.json');
-	var dimmer = new MooGIS.Filter.GeoJSON(source).setStyle({
+	var source = new MooGIS.Source.Geojson.Distant('http://example.com/geo.json');
+	var dimmer = new MooGIS.Filter.Geojson(source).setStyle({
 		opacity: 0.6
 	});
-	var highlighter = new MooGIS.Filter.GeoJSON.Properties(dimmer, {
+	var highlighter = new MooGIS.Filter.Geojson.Properties(dimmer, {
 		"some key": "must match this value"
 	}).setStyle({
 		opacity: 1,

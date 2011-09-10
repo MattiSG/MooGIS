@@ -9,17 +9,17 @@ authors:
 
 requires:
 - core/1.3: '*'
-- MooGIS.Filter.GeoJSON
+- MooGIS.Filter.Geojson
 
-provides: [MooGIS.Filter.GeoJSON.PassThrough]
+provides: [MooGIS.Filter.Geojson.PassThrough]
 
 version: 0.0.1
 
 ---
 */
 
-MooGIS.Filter.GeoJSON.PassThrough = new Class({
-	Extends: MooGIS.Filter.GeoJSON,
+MooGIS.Filter.Geojson.PassThrough = new Class({
+	Extends: MooGIS.Filter.Geojson,
 	
 	accepts: function(features) {
 		return true;

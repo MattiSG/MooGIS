@@ -9,21 +9,21 @@ authors:
 
 requires:
 - core/1.3: '*'
-- MooGIS.Source.GeoJSON
+- MooGIS.Source.Geojson
 
-provides: [MooGIS.Source.GeoJSON.Distant]
+provides: [MooGIS.Source.Geojson.Distant]
 
 version: 0.0.1
 
 ---
 */
 
-MooGIS.Source.GeoJSON.Distant = new Class({
+MooGIS.Source.Geojson.Distant = new Class({
 	/**Fires the `set` source event, plus the following additional events:
 	* - `error`: if there was an error fetching or parsing the file
 	*	- param:	String	an explanation of the error (in English, but rather developer-oriented)
 	*/
-	Extends: MooGIS.Source.GeoJSON,
+	Extends: MooGIS.Source.Geojson,
 	
 	/*
 	url: String,

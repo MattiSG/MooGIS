@@ -14,8 +14,8 @@
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.View.Map.js"></script>
 		
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.js"></script>
-		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.GeoJSON.js"></script>
-		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.GeoJSON.Distant.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.Geojson.js"></script>
+		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.Geojson.Distant.js"></script>
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.Tile.js"></script>
 		<script language="javascript" type="text/javascript" src="../Source/MooGIS.Source.Tile.Cloudmade.js"></script>
 		
@@ -77,9 +77,9 @@
 				}
 			});
 			
-//			var source = new MooGIS.Source.GeoJSON.Distant('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
-//			var source = new MooGIS.Source.GeoJSON.Distant('http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson');
-			var source = new MooGIS.Source.GeoJSON.Distant('http://localhost/frontend_dev.php/analyser/geo.json');
+//			var source = new MooGIS.Source.Geojson.Distant('https://github.com/MattiSG/MooGIS/raw/master/Demo/assets/GeoJSONdemo.json');
+//			var source = new MooGIS.Source.Geojson.Distant('http://elasticrash.info/demos/TwitterApp/oath/geoJSON/country.geojson');
+			var source = new MooGIS.Source.Geojson.Distant('http://localhost/frontend_dev.php/analyser/geo.json');
 			var tileSource = new MooGIS.Source.Tile.Cloudmade('2c285efc8cee49bc9c87536b51066677');
 
 			view._mapView.addStream('Geojson', source);

@@ -9,19 +9,19 @@ authors:
 
 requires:
 - core/1.3: '*'
-- MooGIS.Source.GeoJSON
+- MooGIS.Source.Geojson
 
-provides: [MooGIS.Source.GeoJSON.Distant]
+provides: [MooGIS.Source.Geojson.Input]
 
 version: 0.0.1
 
 ---
 */
 
-MooGIS.Source.GeoJSON.Input = new Class({
+MooGIS.Source.Geojson.Input = new Class({
 	/**Fires the `set` source event, plus the following additional events:
 	*/
-	Extends: MooGIS.Source.GeoJSON,
+	Extends: MooGIS.Source.Geojson,
 	
 	/*
 	_data: GeoJSON data

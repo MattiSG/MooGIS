@@ -12,12 +12,12 @@ describe('Sugar', {
 	},
 	
 	"Filter shortcut": function() {
-		var short = gis.filter('GeoJSON', 'PassThrough_short', function(data) {
+		var short = gis.filter('Geojson', 'PassThrough_short', function(data) {
 			return true;
 		});
 		
-		value_of(short).should_be(MooGIS.Filter.GeoJSON.PassThrough_short);
-		value_of(short).should_be(MooGIS.Filter.GeoJSON.PassThrough);
+		value_of(short).should_be(MooGIS.Filter.Geojson.PassThrough_short);
+		value_of(short).should_be(MooGIS.Filter.Geojson.PassThrough);
 	}
 });
 

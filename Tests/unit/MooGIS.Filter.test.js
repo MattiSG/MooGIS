@@ -14,7 +14,7 @@ var subject,
 
 describe('Filter', {
 	before_all: function() {
-		source = new MooGIS.Source.GeoJSON.Input(geojsonData());
+		source = new MooGIS.Source.Geojson.Input(geojsonData());
 	},
 	
 	before: function() {
@@ -25,8 +25,8 @@ describe('Filter', {
 		
 		signal = secondSignal = 0;
 	
-		subject = new MooGIS.Filter.GeoJSON.PassThrough(source);
-		secondSubject = new MooGIS.Filter.GeoJSON.PassThrough(subject);
+		subject = new MooGIS.Filter.Geojson.PassThrough(source);
+		secondSubject = new MooGIS.Filter.Geojson.PassThrough(subject);
 		
 		subject.addEvent('set', function() {
 			signal++;

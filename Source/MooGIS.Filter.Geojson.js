@@ -11,7 +11,7 @@ requires:
 - core/1.3: '*'
 - MooGIS.Source
 
-provides: [MooGIS.Source.GeoJSON]
+provides: [MooGIS.Source.Geojson]
 
 version: 0.0.1
 
@@ -21,7 +21,7 @@ version: 0.0.1
 /**See documentation in Docs/Filters.md
 *
 */
-MooGIS.Filter.GeoJSON = new Class({
+MooGIS.Filter.Geojson = new Class({
 	Extends: MooGIS.Filter,
 	
 	style: { },

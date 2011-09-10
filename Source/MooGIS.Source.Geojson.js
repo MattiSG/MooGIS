@@ -11,14 +11,14 @@ requires:
 - core/1.3: '*'
 - MooGIS.Source
 
-provides: [MooGIS.Source.GeoJSON]
+provides: [MooGIS.Source.Geojson]
 
 version: 0.0.1
 
 ---
 */
 
-MooGIS.Source.GeoJSON = new Class({
+MooGIS.Source.Geojson = new Class({
 	Extends: MooGIS.Source,
 
 	initialize: function init(options) {

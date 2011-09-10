@@ -6,7 +6,7 @@ Overview
 
 Standard steps:
 - create a `MooGIS.XXX`, `XXX` being your implementation, or one of the standard ones. Will handle all display of information.
-- create a `MooGIS.Source.GeoJSON` (or whichever Source subclass suits you best).
+- create a `MooGIS.Source.Geojson` (or whichever Source subclass suits you best).
 - create any number of instances of `MooGIS.Group` and `MooGIS.Filter` to feed your MooGIS.
 - open channels in the MooGIS instance to feed it the features streams outputted by your filters: `myMooGis.addStream(someSource)`.
 - create whatever complex hierarchy of groups, filters and renderers you want, register the ones you want to be user-accessible, and watch the magic as events invisibly handle all filtering and chaining!
