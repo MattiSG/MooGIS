@@ -15,6 +15,8 @@ Implementation
 
 Usually, implementing a filter is just a matter of extending the proper `Filter.<Channel>` class, and specifying your `accepts` method.
 
+Your filters will probably need some input data to match its stream against. All such data should be passed through the `options` parameter. This will provide for a higher extensibility by uniforming constructors, with such added value as compatibility with `MooGIS.sugar`.
+
 Caching
 -------
 
@@ -22,4 +24,3 @@ Since you'll usually be working with big amounts of data (that's a GIS, right?),
 
 Your Filter's main behaviour should be to pass on `remove` events, and to filter `add` and `set` events with your own filter method. If `stream()` is called and you did not cache features, simply call `stream()` on your source, and filter it!
 Determining which way to go (caching or calling your parent) is your Source's responsibility, depending on the data input size and the calculation complexity.
-

@@ -13,3 +13,8 @@ Naming
 Channels are **always** referred to in a lowercase, capitalized fashion. I.e., write "Geojson", **not** "GeoJSON".
 
 This is for easy automatic channel-to-namespace mapping. I like [CoC](http://en.wikipedia.org/wiki/Convention_over_configuration)  :D
+
+Implementation
+--------------
+
+Usually, implementing a filter is just a matter of extending the proper `<Type>` class (i.e. `Filter`, `Source`…), and specifying a `filter` method to define how the `accepts` method will be applied to data points.
