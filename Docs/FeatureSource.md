@@ -8,69 +8,83 @@ Methods
 
 ### stream ###
 
-Gets the current set of features.
-
-### complement ###
-
-Gets the complement of the current set of features. That is, the input stream minus the set that is output by a call to `stream()`.
-
-#### Implementation tip ####
-
-Since you'll usually be working with big amounts of data (that's a GIS, right?), for optimized memory usage, no need to cache the features (unless you do heavy calculation or know that your set won't change often). The goal of the Source implementation is to chain Filters through event calls, not that each node in the chain stores its current set.
-
-Your Source's main behaviour should be to pass on `remove` events, and to filter `add` and `set` events with your own filter method. If `stream()` is called and you did not cache features, simply call `stream()` on your source, and filter it!
-Determining which way to go (caching or calling your parent) is your Source's responsibility, depending on the data input size and the calculation complexity.
+Gets the current data set.
 
 Events
 ------
 
-### add ###
-
-Must be fired when a feature, or series of features, are added to this set of features.
-
-Params: feature array, the added features. Possibly with length = 1, but always an array.
-
-### remove ###
-
-Must be fired when a feature, or series of features, are removed from this set of features.
-
-Params: feature array, the removed features. Possibly with length = 1, but always an array.
-
-**Warning**: the passed features may not have been `add`ed nor `set` previously! Prepare to handle this gracefully.
-This allows for more efficient chaining, by avoiding mandatory node caching and diffing.
-
 ### set ###
 
-Must be fired when the set of features is set to a new set of values.
+Must be fired when the data set is set to a new set of values.
 
 Equivalent to firing `remove` with all the current values, then `add` with all the new ones. However, when firing `set`, those two other events must not be fired.
 
+Optional (channel-specific) events
+----------------------------------
 
-Feature
-=======
+Most of the channels will transmit sets of data; however, some will only carry unit streams. Those do not need implement the following events, but it is nonetheless much recommended to implement them whenever possible, for performance reasons.
 
-Features are encoded in GeoJSON, which allows you to define points (markers), polylines, and [many other things](http://geojson.org/geojson-spec.html#geometry-objects).
+### add ###
 
+Must be fired when one or several data points are added to this data set.
+
+Params: the added data points, encoded as specified by the channel definition
+
+### remove ###
+
+Must be fired when one or several data points are removed from this data set.
+
+Params: the removed data points, encoded as specified by the channel definition
+
+**Warning**: the passed data points may not have been `add`ed nor `set` previously! Prepare to handle this gracefully.
+_This allows for more efficient chaining, by avoiding mandatory node caching and diffing._
 
 Actual drawing
 ==============
 
 Let your controller code bind your view updates to specific sources  :)
 
-Example:
+Simple example:
 	// gis has been defined as a MooGIS subclass instance
 	
-	var markerSource = new MooGIS.Group('markers', {
-		title: 'Markers'
+	var markerSource = new MooGIS.Source.GeoJSON.Distant('http://example.com/geo.json');
+	
+	gis.addStream('geojson', markerSource);
+
+More interesting example:
+	// gis has been defined as a MooGIS subclass instance
+	
+	var source = new MooGIS.Source.GeoJSON.Distant('http://example.com/geo.json');
+	var dimmer = new MooGIS.Filter.GeoJSON(source).setStyle({
+		opacity: 0.6
+	});
+	var highlighter = new MooGIS.Filter.GeoJSON.Properties(dimmer, {
+		"some key": "must match this value"
+	}).setStyle({
+		opacity: 1,
+		color: 'red'
 	});
 	
-	markerSource.add(new MooGIS.Source.GeoJSON('http://example.com/geo.json'));
-	
-	gis.addStream(markerSource);
+	gis.addStream('geojson', dimmer);
+	gis.addStream('geojson', highlighter);
 	
 
-Other types of data
-===================
+Data types & Channels
+=====================
+
+A data type is transmitted over a _channel_. A "channel" is no object, but an architectural concept: streams of data pass through them, from a source and through filters down to the view.
+
+This is why calls to `view.addStream` must precise which channel they want to use: so the view actually knows how to handle the stream.
+
+To work properly, all elements along the stream must know how to handle the data type that's passed around. They are therefore namespaced as defined in the Filter manual, and it is your responsibility to add only nodes that share the same channel when building your stream.
+
+Features
+--------
+
+Features are encoded in GeoJSON, which allows you to define points (markers), polylines, and [many other things](http://geojson.org/geojson-spec.html#geometry-objects).
+
+Other types
+-----------
 
 GeoJSON allows transmitting most of what you'd want to display on a map.
 
