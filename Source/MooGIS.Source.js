@@ -1,6 +1,6 @@
 /*
 ---
-description: Defines a MooGIS feature source that fetches a GeoJSON file from the given URL.
+description: Defines a MooGIS generic source.
 
 license: to be determined
 
@@ -9,7 +9,7 @@ authors:
 
 requires:
 - core/1.3: '*'
-- MooGIS.Source
+- MooGIS
 
 provides: [MooGIS.Source]
 
