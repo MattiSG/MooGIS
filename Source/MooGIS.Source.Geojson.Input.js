@@ -31,7 +31,7 @@ MooGIS.Source.Geojson.Input = new Class({
 	},
 	
 	/**
-	*@param	url	String	the URL from which to fetch the GeoJSON object.
+	*@param	data	GeoJSON-encoded data	the features to feed
 	*/
 	initialize: function init(data, opts) {
 		this.parent(opts);
@@ -39,10 +39,7 @@ MooGIS.Source.Geojson.Input = new Class({
 		this._data = data;
 	},
 
-	/**
-	*Remember to call `load`, and that `load` is async!
-	*/
 	stream: function stream() {	
-		return [this._data]; // array for interface compliance
+		return this._data;
 	}
 });
