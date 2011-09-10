@@ -21,7 +21,7 @@ version: 0.0.1
 MooGIS.Filter.Geojson.PassThrough = new Class({
 	Extends: MooGIS.Filter.Geojson,
 	
-	accepts: function(features) {
+	accepts: function(feature) {
 		return true;
 	}
 });

@@ -44,6 +44,11 @@ describe('Filter', {
 		value_of(signal).should_be(0);
 	},
 	
+	"'stream()' passes the data on": function() {
+		value_of(subject.stream()).should_be(source.stream());
+		value_of(secondSubject.stream()).should_be(source.stream());
+	},
+	
 	"Source 'set' events are forwarded, and forwarded once": function() {
 		source.reload();
 		value_of(signal).should_be(1);
@@ -69,7 +74,7 @@ describe('Filter', {
 		value_of(secondSignal).should_be(1);
 	},
 	
-	"Passed data is by default not modified by filters": function() {
+	"Passed data is not modified by pass-through filters": function() {
 		var entered = 0;
 		
 		function check(features) {

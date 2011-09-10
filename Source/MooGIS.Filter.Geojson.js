@@ -24,7 +24,9 @@ version: 0.0.1
 MooGIS.Filter.Geojson = new Class({
 	Extends: MooGIS.Filter,
 	
-	style: { },
+	options: {
+		style: { },
+	},
 	
 	initialize: function init(source, options) {
 		this.parent(source, options);
@@ -44,7 +46,7 @@ MooGIS.Filter.Geojson = new Class({
 	*	}
 	*/
 	setStyle: function setStyle(style) {
-		this.style = style;
+		this.options.style = style;
 		this.reload();
 	},
 	
@@ -56,32 +58,13 @@ MooGIS.Filter.Geojson = new Class({
 	*@param	GeoJSON	geojson	the data on which to apply this style
 	*/
 	_paintData: function _paintData(geojson) {
-		geojson.style = Object.merge(geojson.style, style);
-		return geojson;	
+		geojson.style = Object.merge(geojson.style, this.options.style);
+		return geojson;
 	},
 	
-	/**
-	*@protected
-	*/
-	_handleSet: function _handleSet(geojson) {
+	filter: function filter(geojson) {
 		geojson.features = geojson.features.filter(this.accepts, this);
 		
-		this.fireEvent('set', geojson);
-	},
-
-	/**
-	*@protected
-	*/	
-	_handleAdd: function _handleAdd(geojson) {
-		geojson.features = geojson.features.filter(this.accepts, this);
-		
-		this.fireEvent('add', geojson);
-	},
-
-	/**
-	*@protected
-	*/
-	_handleRemove: function _handleRemove(geojson) {
-		this.fireEvent('remove', geojson);
-	},
+		return geojson;	
+	}
 });

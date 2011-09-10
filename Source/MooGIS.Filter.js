@@ -71,42 +71,38 @@ MooGIS.Filter = new Class({
 	/**
 	*@protected
 	*/
-	_handleSet: function _handleSet(features) {
-		features = features.filter(this.accepts, this);
-		
-		this.fireEvent('set', features);
+	_handleSet: function _handleSet(dataPoints) {
+		this.fireEvent('set', this.filter(dataPoints));
 	},
 
 	/**
 	*@protected
 	*/	
-	_handleAdd: function _handleAdd(features) {
-		features = features.filter(this.accepts, this);
-		
-		this.fireEvent('add', features);
+	_handleAdd: function _handleAdd(dataPoints) {
+		this.fireEvent('add', this.filter(dataPoints));
 	},
 
 	/**
 	*@protected
 	*/
-	_handleRemove: function _handleRemove(features) {
-		this.fireEvent('remove', features);
+	_handleRemove: function _handleRemove(dataPoints) {
+		this.fireEvent('remove', dataPoints);
+	},
+	
+	/**Returns the subset of passed in data points that are accepted by this filter.
+	*Defines how to apply the `accepts` method (to be defined by subclasses) to the data points. Usually redefined by each channel.
+	*
+	*@param	dataPoints	data points, as specified for this channel
+	*/
+	filter: function filter(dataPoints) {
+		return dataPoints.filter(this.accepts, this);
 	},
 	
 	stream: function stream() {
-		if (! this.source)
-			return [];
+		if (! this._source)
+			return null;
 		
-		return this._source.stream().filter(this.accepts, this);
-	},
-	
-	complement: function complement() {
-		if (! this.source)
-			return [];
-	
-		return this._source.stream().filter(function(feature) {
-			return ! this.accepts(feature);
-		}, this);
+		return this.filter(this._source.stream());
 	}
 	
 	/*To be implemented:
