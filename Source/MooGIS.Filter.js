@@ -74,7 +74,7 @@ MooGIS.Filter = new Class({
 	_handleSet: function _handleSet(features) {
 		features = features.filter(this.accepts, this);
 		
-		this.fireEvent('set', [features]); // MooTools unwraps arrays on fireEvent
+		this.fireEvent('set', features);
 	},
 
 	/**
@@ -83,14 +83,14 @@ MooGIS.Filter = new Class({
 	_handleAdd: function _handleAdd(features) {
 		features = features.filter(this.accepts, this);
 		
-		this.fireEvent('add', [features]); // MooTools unwraps arrays on fireEvent
+		this.fireEvent('add', features);
 	},
 
 	/**
 	*@protected
 	*/
 	_handleRemove: function _handleRemove(features) {
-		this.fireEvent('remove', [features]); // MooTools unwraps arrays on fireEvent
+		this.fireEvent('remove', features);
 	},
 	
 	stream: function stream() {

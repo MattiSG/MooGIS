@@ -25,8 +25,8 @@ describe('Filter', {
 		
 		signal = secondSignal = 0;
 	
-		subject = new MooGIS.Filter.PassThrough(source);
-		secondSubject = new MooGIS.Filter.PassThrough(subject);
+		subject = new MooGIS.Filter.GeoJSON.PassThrough(source);
+		secondSubject = new MooGIS.Filter.GeoJSON.PassThrough(subject);
 		
 		subject.addEvent('set', function() {
 			signal++;
@@ -63,6 +63,22 @@ describe('Filter', {
 		
 		value_of(signal).should_be(1);
 		value_of(secondSignal).should_be(1);
+	},
+	
+	"Passed data is by default not modified by filters": function() {
+		var entered = 0;
+		
+		function check(features) {
+			value_of(features).should_be(geojsonData());
+			entered++;
+		}
+		
+		subject.addEvent('set', check);
+		secondSubject.addEvent('set', check);
+		
+		source.reload();
+		
+		value_of(entered).should_be(2); // just to make sure we actually entered the checks
 	},
 });
 

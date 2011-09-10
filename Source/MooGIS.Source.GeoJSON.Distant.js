@@ -75,7 +75,7 @@ MooGIS.Source.GeoJSON.Distant = new Class({
 			throw('GeoJSON file not loaded yet!');
 		}
 			
-		return [this.cache]; // array for interface compliance
+		return this.cache;
 	},
 	
 	/**Fetches the GeoJSON file.

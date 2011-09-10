@@ -58,5 +58,30 @@ MooGIS.Filter.GeoJSON = new Class({
 	_paintData: function _paintData(geojson) {
 		geojson.style = Object.merge(geojson.style, style);
 		return geojson;	
-	}
+	},
+	
+	/**
+	*@protected
+	*/
+	_handleSet: function _handleSet(geojson) {
+		geojson.features = geojson.features.filter(this.accepts, this);
+		
+		this.fireEvent('set', geojson);
+	},
+
+	/**
+	*@protected
+	*/	
+	_handleAdd: function _handleAdd(geojson) {
+		geojson.features = geojson.features.filter(this.accepts, this);
+		
+		this.fireEvent('add', geojson);
+	},
+
+	/**
+	*@protected
+	*/
+	_handleRemove: function _handleRemove(geojson) {
+		this.fireEvent('remove', geojson);
+	},
 });
