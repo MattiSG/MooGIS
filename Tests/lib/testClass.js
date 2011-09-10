@@ -13,10 +13,16 @@ function testClass(name, tests) {
 			name.split('.').each(function(ns) {
 				subjectClass = subjectClass[ns];
 			});
-	
+			
+			var prevBefore = tests.before;
+			tests.before = function() {
+				tests.subjectClass = subjectClass;
+				prevBefore.apply(tests);
+			}
+			
 			describe(name, Object.merge({
 				"Class is available": function() {
-					value_of(subjectClass).should_not_be_undefined();
+					value_of(this.subjectClass).should_not_be_undefined();
 				}
 			}, tests));
 		}
