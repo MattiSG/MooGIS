@@ -52,18 +52,24 @@ MooGIS.Source.Tile.Cloudmade = new Class({
 		this._key = key;
 	},
 	
+	setStyle: function setStyle(id) {
+		this.setOptions({
+			styleId: id
+		});
+		
+		this.reload();
+	},
+	
 	stream: function stream() {
-		return [ // array for interface compliance
-			Object.merge(
-						 this.options,
-						 {
+		return Object.merge(
+					this.options,
+						{
 							url: 'http://{s}.tile.cloudmade.com/'
 								+ this._key + '/'
 								+ this.options.styleId + '/'
 								+ this.options.tileSize
 								+ '/{z}/{x}/{y}.png'
-						 }
-						)
-		];
+						}
+					);
 	}
 });
