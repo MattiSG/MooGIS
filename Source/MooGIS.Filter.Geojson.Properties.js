@@ -21,8 +21,9 @@ version: 0.0.1
 /**Defines MooGIS.Filter.Geojson.Properties.
 *Filters GeoJSON features over whether they match a given set of properties or not.
 *Options:
-* - match: Object, where the keys are the keys to match in features, and values are Regexps or Strings to match values against
-* //TODO: test matching other values than strings.
+* - match: Object, where the key/value pairs are to be matched in features
+*
+* //TODO: match patterns rather than straight values
 *
 */
 gis.filter('Geojson', 'Properties', function(feature) {
@@ -31,10 +32,10 @@ gis.filter('Geojson', 'Properties', function(feature) {
 		if (! against.hasOwnProperty(k))
 			break;
 		
-		if (! feature[k])
+		if (! feature.properties[k])
 			return false;
 		
-		if (! feature[k].test(against[k]))
+		if (feature.properties[k] != against[k])
 			return false;
 	}
 	

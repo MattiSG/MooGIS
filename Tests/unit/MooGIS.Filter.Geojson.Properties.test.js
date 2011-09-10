@@ -29,7 +29,7 @@ describe('Filter.Geojson.Properties', {
 		
 		subject = new MooGIS.Filter.Geojson.Properties(source, {
 			match: {
-				'someText': 'Text'
+				'someText': geojsonData().features[0].properties.someText
 			}
 		});
 		
@@ -64,7 +64,12 @@ describe('Filter.Geojson.Properties', {
 			}
 		});
 		
-		subject.reload();
+		subject.addEvent('set', function(data) {
+			signal++;
+			setData = data;
+		});
+		
+		source.reload();
 		
 		value_of(signal).should_be(1);
 		value_of(setData).should_be(expectedData);
