@@ -36,6 +36,10 @@ describe('Filter', {
 		});
 	},
 	
+	"Class is available": function() {
+		value_of(MooGIS.Filter).should_not_be_undefined();
+	},
+	
 	"'set' events are not sent out of nowhere": function() {
 		value_of(signal).should_be(0);
 	},
