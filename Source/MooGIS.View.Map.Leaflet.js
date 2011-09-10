@@ -79,7 +79,7 @@ MooGIS.View.Map.Leaflet = new Class({
 	},
 	
 	/*******INTERFACE COMPLIANCE*******/
-	showBounds: function showBounds(bounds, requester) {
+	showBounds: function showBounds(bounds) {
 		if (bounds.contains(this.map.getBounds())) //we'll alternate between a "soft" recentering and a "full" one
 			this.map.fitBounds(bounds); //hard
 		else
@@ -102,8 +102,14 @@ MooGIS.View.Map.Leaflet = new Class({
 	},
 	
 	/*******TILE CHANNEL*******/
-	addTile: function addTile(addedTiledefs) {
-		Array.each(addedTiledefs, function(tiledef) {
+	/**
+	*@params	varargs	tiledefs
+	*
+	*@see	http://en.wikipedia.org/wiki/Variadic_function
+	*@see	Docs/Channels/Tile
+	*/
+	addTile: function addTile() {
+		Array.each(arguments, function(tiledef) {
 			var activeTiledef = this._tiledefs[tiledef.url];
 			if (activeTiledef)
 				throw("This shouldn't happen: added Tile is a duplicate!"); //DEBUG, to be removed
@@ -115,9 +121,15 @@ MooGIS.View.Map.Leaflet = new Class({
 			this._tiledefs[tiledef.url] = tiledef;
 		}, this);
 	},
-	
-	removeTile: function removeTile(removedTiledefs) {
-		Array.each(removedTiledefs, function(tiledef) {
+
+	/**
+	*@params	varargs	tiledefs
+	*
+	*@see	http://en.wikipedia.org/wiki/Variadic_function
+	*@see	Docs/Channels/Tile
+	*/
+	removeTile: function removeTile() {
+		Array.each(arguments, function(tiledef) {
 			var activeTiledef = this._tiledefs[tiledef.url];
 			if (activeTiledef) {
 				this._map.removeLayer(activeTiledef._tileLayer);
@@ -126,9 +138,14 @@ MooGIS.View.Map.Leaflet = new Class({
 		}, this);
 	},
 	
-	
-	setTile: function setTile(tiledefs) {
+	/**
+	*@params	varargs	tiledefs
+	*
+	*@see	http://en.wikipedia.org/wiki/Variadic_function
+	*@see	Docs/Channels/Tile
+	*/
+	setTile: function setTile() {
 		this.removeTile(Object.values(this._tiledefs));
-		this.addTile(tiledefs);
+		this.addTile.apply(this, arguments);
 	}
 });

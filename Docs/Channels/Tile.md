@@ -1,5 +1,8 @@
+Tile channel
+============
+
 Tile layer definition (Tiledef)
-===============================
+-------------------------------
 
 A `Tiledef` is used to describe a tiles layer. It is an abstraction over a tiles layer just like GeoJSON is an abstraction over a set of features. Just like it, it is used to encapsulate a description for being streamed from sources to views through filters.
 
@@ -21,7 +24,6 @@ A `Tiledef` is a hash with the following items:
 	
 The `url` property is an unique identifier. That is, `add` and `remove` events will discriminate based on the `url` property.
 
-Credits
--------
+### Credits ###
 
 Most of the properties definitions come from [Leaflet](http://leaflet.cloudmade.com/reference.html#tilelayer-options).
