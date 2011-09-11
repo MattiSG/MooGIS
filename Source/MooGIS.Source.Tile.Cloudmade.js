@@ -23,12 +23,6 @@ MooGIS.Source.Tile.Cloudmade = new Class({
 	*/
 	Extends: MooGIS.Source.Tile,
 	
-	/*
-	url: String,
-	request: Request.JSON,
-	cache: GeoJSON data
-	*/
-	
 	/**All options from Tiledef, plus 'styleId'.
 	*
 	*@see	Tiledef
