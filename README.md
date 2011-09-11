@@ -40,6 +40,12 @@ To be determined.
 
 **THIS VERSION IS PRE-RELEASE AND SHOULD NOT BE USED, DEPLOYED, NOR DISCLOSED ANYWHERE WITHOUT PRIOR WRITTEN CONSENT FROM THE AUTHOR.**
 
+Equivalent projects and rationale for creating a new web-based GIS
+------------------------------------------------------------------
+
+- [sbrunner/map](https://github.com/sbrunner/map) ([demo](http://map.stephane-brunner.ch/))
+	Very good, but not documented. Plus, from a look at the repository: needs server-side Python, based on tile layers, does not seem to be easily configurable to offer a subset of functionalities.
+
 Coding Style, Philosophy & Implemented standards
 ------------------------------------------------
 
