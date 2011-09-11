@@ -48,10 +48,19 @@ describe('Source.Tile.Cloudmade', {
 		check(setData, 997);
 	},
 	
-	"Changing style sets new tiles": function() {
+	"Changing style sets new a tiledef": function() {
 		value_of(signal).should_be(0);
 		
 		subject.setStyle(2000);
+		
+		value_of(signal).should_be(1);
+		check(setData, 2000);
+	},
+		
+	"Changing style to a string sets new tiles": function() {
+		value_of(signal).should_be(0);
+		
+		subject.setStyle('2000');
 		
 		value_of(signal).should_be(1);
 		check(setData, 2000);

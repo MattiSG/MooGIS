@@ -21,8 +21,14 @@ version: 0.0.1
 MooGIS.View.Map.Leaflet = new Class({
 	Extends: MooGIS.View.Map,
 	
+	/**List of all currently active Tile Layers.
+	*Keys are url templates (Tiledef.url), values the full Tiledef + an additional `_tileLayer` property that references the corresponding `L.TileLayer` instance.
+	*
+	*@see	Tiledef
+	*/
+	_tiledefs: { },
 	/*
-	_geoJsonLayer: L.GeoJSON
+	_geoJsonLayer: L.GeoJSON,
 	*/
 	
 	options: {
@@ -42,13 +48,6 @@ MooGIS.View.Map.Leaflet = new Class({
 		geojsonChannel: {
 		}
 	},
-	
-	/**List of all currently active Tile Layers.
-	*Keys are url templates (Tiledef.url), values the full Tiledef + an additional `_tileLayer` property that references the corresponding `L.TileLayer` instance.
-	*
-	*@see	Tiledef
-	*/
-	_tiledefs: { },
 	
 	initialize: function init(container, options) {
 		this.parent(container, options);
@@ -114,11 +113,10 @@ MooGIS.View.Map.Leaflet = new Class({
 			if (activeTiledef)
 				throw("This shouldn't happen: added Tile is a duplicate!"); //DEBUG, to be removed
 			
-			tiledef._tileLayer = new L.TileLayer(tiledef.url, Object.merge(this.options.tileChannel, tiledef));
+			 var result = this._tiledefs[tiledef.url]
+			 			= new L.TileLayer(tiledef.url, Object.merge(this.options.tileChannel, tiledef));
 			
-			this._map.addLayer(tiledef._tileLayer);
-			
-			this._tiledefs[tiledef.url] = tiledef;
+			this._map.addLayer(result);
 		}, this);
 	},
 
@@ -132,7 +130,7 @@ MooGIS.View.Map.Leaflet = new Class({
 		Array.each(arguments, function(tiledef) {
 			var activeTiledef = this._tiledefs[tiledef.url];
 			if (activeTiledef) {
-				this._map.removeLayer(activeTiledef._tileLayer);
+				this._map.removeLayer(activeTiledef);
 				delete this._tiledefs[tiledef.url];
 			}
 		}, this);
@@ -145,7 +143,10 @@ MooGIS.View.Map.Leaflet = new Class({
 	*@see	Docs/Channels/Tile
 	*/
 	setTile: function setTile() {
-		this.removeTile(Object.values(this._tiledefs));
+		Object.each(this._tiledefs, function(layer, url) {
+			this._map.removeLayer(layer);
+			delete this._tiledefs[url];			
+		}, this);
 		this.addTile.apply(this, arguments);
 	}
 });

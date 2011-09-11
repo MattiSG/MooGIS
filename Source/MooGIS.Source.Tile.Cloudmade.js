@@ -30,7 +30,6 @@ MooGIS.Source.Tile.Cloudmade = new Class({
 	*/
 	
 	/**All options from Tiledef, plus 'styleId'.
-	*`styleId` is an ID from styles created with Cloudmade Map Editor.
 	*
 	*@see	Tiledef
 	*@see	http://maps.cloudmade.com/editor
@@ -38,6 +37,8 @@ MooGIS.Source.Tile.Cloudmade = new Class({
 	options: {
 		attribution: "Map data CC-BY-SA OpenStreetMap contributors, Imagery ©2011 CloudMade",
 		tileSize: 256,
+		/**The ID of a style created with Cloudmade Map Editor.
+		*/
 		styleId: 997
 	},
 	
@@ -52,12 +53,19 @@ MooGIS.Source.Tile.Cloudmade = new Class({
 		this._key = key;
 	},
 	
+	/**Sets the current styleId to the given one and streams the new tiledef.
+	*
+	*@returns	this	for chainability
+	*@param	id	Number of String	the ID of a style created with Cloudmade Map Editor.
+	*/
 	setStyle: function setStyle(id) {
 		this.setOptions({
 			styleId: id
 		});
 		
 		this.reload();
+		
+		return this;
 	},
 	
 	stream: function stream() {
