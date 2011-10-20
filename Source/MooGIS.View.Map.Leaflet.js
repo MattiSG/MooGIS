@@ -68,6 +68,9 @@ MooGIS.View.Map.Leaflet = new Class({
 	},
 	
 	initGeojson: function initGeojson() {
+		if (this._geoJsonLayer)
+			this._map.removeLayer(this._geoJsonLayer);
+			
 		this._geoJsonLayer = new L.GeoJSON(null, this.options.geojsonChannel);
 		
 		var onFeatureparse = this.options.geojsonChannel.onFeatureparse;
