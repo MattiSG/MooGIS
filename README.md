@@ -36,15 +36,20 @@ That being said, Leaflet and MooTools both support the full [A-grade browsers](h
 License
 -------
 
-To be determined.
-
-**THIS VERSION IS PRE-RELEASE AND SHOULD NOT BE USED, DEPLOYED, NOR DISCLOSED ANYWHERE WITHOUT PRIOR WRITTEN CONSENT FROM THE AUTHOR.**
+[GPL](http://www.gnu.org/licenses/gpl.html): use it & hack it freely, but you must redistribute all of your changes. For any questions regarding licensing, do not hesitate to [contact me](mailto:hi@mattischneider.fr).
 
 Equivalent projects and rationale for creating a new web-based GIS
 ------------------------------------------------------------------
 
 - [sbrunner/map](https://github.com/sbrunner/map) ([demo](http://map.stephane-brunner.ch/))
 	Very good, but not documented. Plus, from a look at the repository: needs server-side Python, based on tile layers, does not seem to be easily configurable to offer a subset of functionalities.
+
+Status
+------
+
+**Development is currently stopped. This library has been used with success for at least two years in a [public webapp](http://pdc.refedd.org) and it might give you ideas and concepts, but no update is currently planned.**
+
+In two years, many alternatives have been created. You should probably have a look at [iD](https://github.com/systemed/iD).
 
 Coding Style, Philosophy & Implemented standards
 ------------------------------------------------
@@ -110,7 +115,7 @@ Credits
 -------
 
 ### Authors ###
-- [Matti Schneider-Ghibaudo](http://mattischneider.fr)
+- [Matti Schneider](http://mattischneider.fr)
 
 ### Used projects ###
 - [MooTools](http://mootools.net)
