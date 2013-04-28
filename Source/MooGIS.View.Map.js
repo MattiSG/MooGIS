@@ -1,6 +1,6 @@
 /*
 ---
-description: Abstract definition of a MooGIS view. Instances of subclasses should be used.
+description: Abstract definition of a MooGIS map. Instances of subclasses should be used.
 
 license: to be determined
 
