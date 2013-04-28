@@ -78,4 +78,18 @@ gis.source = function newSource(channel, name, stream, helpers) {
 	return result;
 }
 
+
+/**Constructor that handles setting static methods as well.
+*
+*@returns	the new class.
+*/
+gis.moduleView = function newModuleView(id, name, proto) {
+	proto.getId = $lambda(id);
+	proto._name = name;
+	var result = new Class($merge({ Extends: PDCMapAbstractRenderer }, proto));
+	result.getId = $lambda(id);
+	result.getName = $lambda(name);
+	return result;
+}
+
 })();
